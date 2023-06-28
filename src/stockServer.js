@@ -11,7 +11,7 @@ class StockServer {
         this.io = socketIo(this.server);
         this.stocksManager = new StocksManager();
 
-        this.app.use(express.static(path.join(__dirname, '/../public'))); // serve static files from 'public' directory
+        this.app.use(express.static(path.join(__dirname, '/../public')));
     }
 
     start() {

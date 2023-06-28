@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stocks</title>
+    <style>
+        #stocks {
+            display: flex;
+            flex-direction: column;
+        }
+        .stock {
+            margin-bottom: 1rem;
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div id="stocks"></div>
+
+    <script>
+        var socket = io('/');
+        socket.on('stock update', function (stocks) {
+            // sort the stocks in increasing order by value
+            stocks.sort((a, b) => a.value - b.value);
+
+            const stocksDiv = document.getElementById('stocks');
+            stocksDiv.innerHTML = ''; // clear the div
+
+            // present the sorted stocks
+            for (let stock of stocks) {
+                let div = document.createElement('div');
+                div.textContent = `${stock.name}: ${stock.value}`;
+                div.classList.add('stock');
+                stocksDiv.appendChild(div);
+            }
+        });
+    </script>
+</body>
+</html>

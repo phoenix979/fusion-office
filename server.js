@@ -21,6 +21,8 @@ let stocks = [
     {name: 'ibm', value: 60}
 ];
 
+/* this function is that after the stock is updated it is sent to the client */
+
 function sendStockUpdates() {
     let randomStock = stocks[Math.floor(Math.random() * stocks.length)];
     randomStock.value = Math.floor(Math.random() * (100 - 10 + 1) + 10);
@@ -31,4 +33,6 @@ server.listen(3000, () => {
     console.log('listening on *:3000');
 });
 
-setInterval(sendStockUpdates, 10000); // send updates every 10 seconds
+/* this is to make every 10 second a push notification to the client */
+
+setInterval(sendStockUpdates, 10000); 

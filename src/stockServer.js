@@ -19,10 +19,8 @@ class StockServer {
             console.log('listening on *:3000');
         });
 
-        // send updates every 10 seconds
         setInterval(() => this.sendStockUpdates(), 10000); 
 
-        // Emit the current stock data whenever a new client connects
         this.io.on('connection', (socket) => {
             this.sendStocks();
         });

@@ -3,12 +3,28 @@
 <head>
     <title>Stocks</title>
     <style>
-        #stocks {
+        body {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
         }
+
+        #stocks {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+
         .stock {
             margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: #333;
         }
     </style>
     <script src="/socket.io/socket.io.js"></script>
@@ -19,13 +35,11 @@
     <script>
         var socket = io('/');
         socket.on('stock update', function (stocks) {
-            // sort the stocks in increasing order by value
             stocks.sort((a, b) => a.value - b.value);
 
             const stocksDiv = document.getElementById('stocks');
-            stocksDiv.innerHTML = ''; // clear the div
+            stocksDiv.innerHTML = '';
 
-            // present the sorted stocks
             for (let stock of stocks) {
                 let div = document.createElement('div');
                 div.textContent = `${stock.name}: ${stock.value}`;

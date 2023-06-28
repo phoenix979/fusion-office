@@ -24,13 +24,17 @@ class StockServer {
 
         // Emit the current stock data whenever a new client connects
         this.io.on('connection', (socket) => {
-            this.sendStockUpdates();
+            this.sendStocks();
         });
+    }
+
+    sendStocks() {
+        this.io.emit('stock update', this.stocksManager.getStocks());
     }
 
     sendStockUpdates() {
         this.stocksManager.updateRandomStock();
-        this.io.emit('stock update', this.stocksManager.getStocks());
+        this.sendStocks()
     }
 }
 
